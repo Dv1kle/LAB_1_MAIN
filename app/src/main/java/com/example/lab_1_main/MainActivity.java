@@ -1,31 +1,24 @@
 package com.example.lab_1_main;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.TextView;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
-
-    private TextView textView;
-    private Button buttonChangeText;
-    private Button buttonChangeColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main); // Ensure this is correct
-
-        textView = findViewById(R.id.textView);
-        buttonChangeText = findViewById(R.id.button_change_text);
-        buttonChangeColor = findViewById(R.id.button_change_color);
-
-        // Change Text Button
-        buttonChangeText.setOnClickListener(v -> textView.setText("Text Changed!"));
-
-        // Change Color Button
-        buttonChangeColor.setOnClickListener(v -> textView.setTextColor(Color.RED));
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
     }
 }
